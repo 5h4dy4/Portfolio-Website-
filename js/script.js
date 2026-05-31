@@ -20,18 +20,27 @@ const qsa = (selector, root = document) => [...root.querySelectorAll(selector)];
    ============================================================ */
 (function initPreloader() {
   const preloader = qs("#preloader");
-  if (!preloader) return;
+  if (!preloader) {
+    document.body.classList.add("hero-loaded");
+    return;
+  }
 
-  window.addEventListener("load", () => {
-    // Brief pause so animation can be appreciated
-    setTimeout(() => {
-      preloader.classList.add("hidden");
-      // Remove from DOM after transition completes
-      preloader.addEventListener("transitionend", () => {
-        preloader.style.display = "none";
-      }, { once: true });
-    }, 600);
-  });
+  const hide = () => {
+    preloader.classList.add("hidden");
+    preloader.addEventListener("transitionend", () => {
+      preloader.style.display = "none";
+      document.body.classList.add("hero-loaded");
+    }, { once: true });
+    // Safety fallback for hero-loaded
+    setTimeout(() => document.body.classList.add("hero-loaded"), 600);
+  };
+
+  if (document.readyState === "complete") {
+    // Page already loaded — hide immediately
+    setTimeout(hide, 100);
+  } else {
+    window.addEventListener("load", () => setTimeout(hide, 400));
+  }
 })();
 
 /* ============================================================
@@ -147,31 +156,7 @@ const qsa = (selector, root = document) => [...root.querySelectorAll(selector)];
 })();
 
 /* ============================================================
-   FEATURE 5: DYNAMIC SCROLL REVEAL (IntersectionObserver)
-   ============================================================ */
-(function initScrollReveal() {
-  const revealEls = qsa(".reveal");
-  if (!revealEls.length) return;
-
-  if (!("IntersectionObserver" in window)) {
-    revealEls.forEach(el => el.classList.add("active"));
-    return;
-  }
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-        io.unobserve(entry.target);
-      }
-    });
-  }, { rootMargin: "0px 0px -100px 0px", threshold: 0.05 });
-
-  revealEls.forEach(el => io.observe(el));
-})();
-
-/* ============================================================
-   FEATURE 5b: PROGRESS BAR ANIMATION (IntersectionObserver)
+   FEATURE 5: PROGRESS BAR ANIMATION (IntersectionObserver)
    ============================================================ */
 (function initProgressBars() {
   const progressFills = qsa(".progress-fill");
@@ -557,5 +542,173 @@ const qsa = (selector, root = document) => [...root.querySelectorAll(selector)];
   mql.addEventListener && mql.addEventListener("change", (e) => {
     if (!localStorage.getItem("theme")) applyTheme(e.matches);
   });
+})();
+
+/* ============================================================
+   ANIMATION MODULE 2: SCROLL REVEAL
+   Fades up elements as they enter the viewport
+   ============================================================ */
+(function initScrollReveal() {
+  const revealEls = qsa(".reveal");
+  if (!revealEls.length) return;
+
+  if (!("IntersectionObserver" in window)) {
+    revealEls.forEach(el => el.classList.add("active"));
+    return;
+  }
+
+  let delayCounter = 0;
+  let delayTimer = null;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Stagger items that enter viewport at the same time
+        setTimeout(() => {
+          entry.target.classList.add("active");
+        }, delayCounter * 120);
+        delayCounter++;
+        
+        io.unobserve(entry.target);
+      }
+    });
+
+    // Reset the delay counter after a batch of entries is processed
+    clearTimeout(delayTimer);
+    delayTimer = setTimeout(() => { delayCounter = 0; }, 200);
+  }, { rootMargin: "0px 0px -50px 0px", threshold: 0.1 });
+
+  revealEls.forEach(el => io.observe(el));
+})();
+
+/* ============================================================
+   ANIMATION MODULE 3: STAT COUNTER ANIMATION
+   Animates number counting up when stat pills enter viewport
+   ============================================================ */
+(function initCounterAnimation() {
+  const counters = qsa(".counter-value");
+  if (!counters.length) return;
+
+  const duration = 2200;
+
+  function countUp(el, target, delay) {
+    const start = performance.now() + delay;
+    const hasPlus = el.dataset.suffix === "+";
+    const cleanTarget = parseInt(target.replace(/\D/g, ""), 10);
+
+    function step(now) {
+      const elapsed = now - start;
+      if (elapsed < 0) { requestAnimationFrame(step); return; }
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const current = Math.round(cleanTarget * eased);
+      el.textContent = current + (hasPlus ? "+" : "");
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    counters.forEach((c, i) => countUp(c, c.textContent, i * 150));
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = el.textContent;
+        const idx = counters.indexOf(el);
+        el.classList.add("counting");
+        countUp(el, target, idx * 150);
+        io.unobserve(el);
+      }
+    });
+  }, { rootMargin: "0px 0px -50px 0px", threshold: 0.3 });
+
+  counters.forEach(c => io.observe(c));
+})();
+
+/* ============================================================
+   ANIMATION MODULE 3: TIMELINE LINE DRAW
+   Animates the timeline vertical line from top to bottom
+   ============================================================ */
+(function initTimelineLineDraw() {
+  const timelines = qsa(".timeline");
+  if (!timelines.length) return;
+
+  timelines.forEach(tl => {
+    const existing = tl.querySelector(".timeline-draw");
+    if (existing) return;
+    const line = document.createElement("div");
+    line.className = "timeline-draw";
+    line.style.cssText = "position:absolute;left:6px;top:0;bottom:0;width:1px;background:var(--accent);z-index:0;";
+    tl.insertBefore(line, tl.firstChild);
+  });
+
+  if (!("IntersectionObserver" in window)) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const draw = entry.target.querySelector(".timeline-draw");
+        if (draw) draw.classList.add("active");
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: "0px 0px -100px 0px", threshold: 0.1 });
+
+  timelines.forEach(tl => io.observe(tl));
+})();
+
+/* ============================================================
+   ANIMATION MODULE 4: IMAGE MASK WIPE REVEAL
+   Triggers mask wipe on project images when scrolled into view
+   ============================================================ */
+(function initImageMaskWipe() {
+  const masks = qsa(".img-mask-wipe");
+  if (!masks.length) return;
+
+  if (!("IntersectionObserver" in window)) {
+    masks.forEach(m => m.classList.add("active"));
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: "0px 0px -80px 0px", threshold: 0.2 });
+
+  masks.forEach(m => io.observe(m));
+})();
+
+/* ============================================================
+   ANIMATION MODULE 5: PARALLAX SCROLL EFFECT
+   Subtle parallax on hero background elements based on scroll
+   ============================================================ */
+(function initParallaxScroll() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const heroSection = qs(".hero-section");
+  if (!heroSection) return;
+
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const scrollY = window.scrollY;
+      const heroHeight = heroSection.offsetHeight;
+      if (scrollY < heroHeight) {
+        const progress = scrollY / heroHeight;
+        heroSection.style.setProperty("--parallax-offset", `${progress * 40}px`);
+      }
+      ticking = false;
+    });
+  }, { passive: true });
 })();
 

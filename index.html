@@ -8,15 +8,15 @@
     content="Malik Masood – Software Engineer. Explore my projects, skills, experience, and get in touch." />
   <meta name="keywords" content="portfolio, software engineer, web developer, Python, Malik Masood, Karachi" />
   <meta name="author" content="Malik Masood" />
-  <meta name="theme-color" content="#080714" media="(prefers-color-scheme: dark)" />
-  <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#12100e" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)" />
   <meta property="og:title" content="Malik Masood | Software Engineer Portfolio" />
   <meta property="og:description"
     content="Premium interactive portfolio showcasing projects, skills, and professional experience of Malik Masood." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://via.placeholder.com/1200x630/080714/a78bfa?text=Malik+Masood+%7C+Software+Engineer" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23080714'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='52' font-weight='bold' text-anchor='middle' fill='%23a78bfa'%3EM%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2312100e'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='52' font-weight='bold' text-anchor='middle' fill='%23c75b39'%3EM%3C/text%3E%3C/svg%3E" />
   <title>Malik Masood | Software Engineer Portfolio</title>
 
   <!-- Structured Data: Person -->
@@ -38,7 +38,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet" />
 
   <!-- Font Awesome Icons -->
@@ -102,58 +102,40 @@
 
   <!-- ===================== HERO SECTION ===================== -->
   <section id="home" class="hero-section" aria-label="Hero introduction">
-    <div class="hero-bg-particles" aria-hidden="true">
-      <span class="particle"></span><span class="particle"></span>
-      <span class="particle"></span><span class="particle"></span>
-      <span class="particle"></span><span class="particle"></span>
-    </div>
-
     <div class="hero-content">
       <div class="hero-text">
-        <p class="hero-greeting">Hello, World! 👋</p>
-        <h1 class="hero-name">I'm <span class="name-highlight">Malik Masood</span></h1>
-        <h2 class="typing-text" aria-live="polite"></h2>
-        <p class="hero-description">
+        <p class="hero-greeting hero-load-reveal">Hello, World! 👋</p>
+        <h1 class="hero-name hero-load-reveal">I'm <span class="name-highlight">Malik Masood</span></h1>
+        <div class="hero-accent-line hero-load-reveal" aria-hidden="true"></div>
+        <h2 class="typing-text hero-load-reveal" aria-live="polite"></h2>
+        <p class="hero-description hero-load-reveal">
           A passionate Software Engineer from Karachi, Pakistan — building smart digital solutions through code,
           creativity, and continuous learning.
         </p>
-        <div class="hero-cta-group">
-          <a href="#projects" class="btn btn-primary" id="view-projects-btn">
+        <div class="hero-cta-group hero-load-reveal">
+          <a href="#projects" class="btn btn-primary btn-magnetic" id="view-projects-btn">
             <i class="fas fa-rocket"></i> View My Work
           </a>
           <a href="#contact" class="btn btn-outline">
             <i class="fas fa-envelope"></i> Get In Touch
           </a>
         </div>
-        <div class="hero-social-mini">
-          <a href="mailto:malikmasood214@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-          <a href="https://github.com/malikmasood" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i
-              class="fab fa-github"></i></a>
-          <a href="https://linkedin.com/in/malikmasood" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i
-              class="fab fa-linkedin"></i></a>
-        </div>
-      </div>
-
-      <div class="hero-visual" aria-hidden="true">
-        <div class="hero-avatar-wrapper">
-          <div class="hero-avatar-ring ring-1"></div>
-          <div class="hero-avatar-ring ring-2"></div>
-          <div class="hero-avatar-ring ring-3"></div>
-          <div class="hero-avatar">
-            <div class="avatar-initials">MM</div>
-          </div>
-          <div class="badge-orbit">
-            <div class="hero-tech-badge badge-python"><i class="fab fa-python"></i></div>
-            <div class="hero-tech-badge badge-js"><i class="fab fa-js"></i></div>
-            <div class="hero-tech-badge badge-code"><i class="fas fa-code"></i></div>
-            <div class="hero-tech-badge badge-db"><i class="fas fa-database"></i></div>
-          </div>
+        <div class="hero-social-row hero-load-reveal">
+          <a href="mailto:malikmasood214@gmail.com" class="hero-social-item" aria-label="Email">
+            <i class="fas fa-envelope"></i><span>Email</span>
+          </a>
+          <a href="https://github.com/malikmasood" target="_blank" rel="noopener noreferrer" class="hero-social-item" aria-label="GitHub">
+            <i class="fab fa-github"></i><span>GitHub</span>
+          </a>
+          <a href="https://linkedin.com/in/malikmasood" target="_blank" rel="noopener noreferrer" class="hero-social-item" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+          </a>
         </div>
       </div>
     </div>
 
     <div class="hero-scroll-hint" aria-hidden="true">
-      <span>Scroll Down</span>
+      <span>Scroll</span>
       <div class="scroll-arrow">
         <i class="fas fa-chevron-down"></i>
       </div>
@@ -185,15 +167,15 @@
             </div>
             <div class="about-stats">
               <div class="stat-pill">
-                <span class="stat-number">3+</span>
+                <span class="stat-number counter-value" data-suffix="+">3+</span>
                 <span class="stat-label">Years Exp.</span>
               </div>
               <div class="stat-pill">
-                <span class="stat-number">5+</span>
+                <span class="stat-number counter-value" data-suffix="+">5+</span>
                 <span class="stat-label">Projects</span>
               </div>
               <div class="stat-pill">
-                <span class="stat-number">4+</span>
+                <span class="stat-number counter-value" data-suffix="+">4+</span>
                 <span class="stat-label">Roles</span>
               </div>
             </div>
@@ -390,8 +372,8 @@
               </div>
             </div>
             <div class="project-image-container">
-              <div class="project-image-wrapper">
-                <img src="assets/Remote App Launcher.png" alt="Remote App Launcher screenshot" class="project-img" loading="lazy">
+              <div class="project-image-wrapper img-mask-wipe">
+                <img src="images/Remote App Launcher.png" alt="Remote App Launcher screenshot" class="project-img" loading="lazy">
               </div>
             </div>
           </div>
@@ -419,7 +401,7 @@
               </div>
             </div>
             <div class="project-image-container">
-              <div class="project-image-wrapper">
+              <div class="project-image-wrapper img-mask-wipe">
                 <div class="project-placeholder">
                   <i class="fas fa-door-open project-icon-new"></i>
                 </div>
@@ -449,8 +431,8 @@
               </div>
             </div>
             <div class="project-image-container">
-              <div class="project-image-wrapper">
-                <img src="assets/Interactive portfolio website.png" alt="Interactive Portfolio Website screenshot" class="project-img" loading="lazy">
+              <div class="project-image-wrapper img-mask-wipe">
+                <img src="images/Interactive portfolio website.png" alt="Interactive Portfolio Website screenshot" class="project-img" loading="lazy">
               </div>
             </div>
           </div>
@@ -477,8 +459,8 @@
               </div>
             </div>
             <div class="project-image-container">
-              <div class="project-image-wrapper">
-                <video src="assets/Esport Production.mp4" class="project-img" muted loop playsinline preload="metadata" onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0;"></video>
+              <div class="project-image-wrapper img-mask-wipe">
+                <video src="images/Esport Production.mp4" class="project-img" muted loop playsinline preload="metadata" onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0;"></video>
               </div>
             </div>
           </div>
@@ -505,7 +487,7 @@
               </div>
             </div>
             <div class="project-image-container">
-              <div class="project-image-wrapper">
+              <div class="project-image-wrapper img-mask-wipe">
                 <div class="project-placeholder">
                   <i class="fas fa-funnel-dollar project-icon-new"></i>
                 </div>
@@ -536,7 +518,7 @@
               </div>
             </div>
             <div class="project-image-container">
-              <div class="project-image-wrapper">
+              <div class="project-image-wrapper img-mask-wipe">
                 <div class="project-placeholder">
                   <i class="fas fa-chalkboard-teacher project-icon-new"></i>
                 </div>
@@ -846,7 +828,7 @@
 
       <div class="contact-wrapper">
         <!-- Contact Info -->
-        <div class="contact-info reveal">
+        <div class="contact-info">
           <h3 class="contact-info-title">Let's Build Something Together</h3>
           <p class="contact-info-desc">
             I'm open to freelance projects, collaborations, and exciting opportunities. Whether you have an idea, a
@@ -895,7 +877,7 @@
         </div>
 
         <!-- Contact Form -->
-        <div class="contact-form-wrapper reveal">
+        <div class="contact-form-wrapper">
           <form id="contact-form" class="contact-form glass-card" novalidate aria-label="Contact form">
             <div class="form-group">
               <label for="name" class="form-label">Full Name <span class="required" aria-hidden="true">*</span></label>
